@@ -1,0 +1,18 @@
+.classpath
+.project
+.settings
+.DS_Store
+.idea
+target/
+unite
+*.pyc
+syntax: glob
+*.iml
+*.ipr
+*.iws
+*.ids
+*.class
+*.data
+*.index
+*.log
+# Ignore pdf files for feature documentation
