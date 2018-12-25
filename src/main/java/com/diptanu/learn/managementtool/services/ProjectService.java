@@ -35,4 +35,8 @@ public class ProjectService {
     public Iterable<Project> findAllProjects() {
         return projectRepository.findAll();
     }
+
+    public void deleteProjectByIdentifier(String projectId) {
+        Optional.ofNullable(projectRepository.findByProjectIdentifier(projectId)).ifPresent(project -> projectRepository.delete(project));
+    }
 }
