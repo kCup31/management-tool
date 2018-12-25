@@ -6,6 +6,8 @@ import com.diptanu.learn.managementtool.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ProjectService {
 
@@ -21,6 +23,12 @@ public class ProjectService {
         } catch (Exception e) {
             throw new ProjectIdException("ProjectId : "  +project.getProjectIdentifier().toUpperCase() + " already exists" );
         }
+    }
+
+    public Project findByProjectIdentifier(String projectId) {
+
+        return Optional.ofNullable(projectRepository.findByProjectIdentifier(projectId.toUpperCase()))
+                .orElseThrow(() -> new ProjectIdException("ProjectId " + projectId + " does not exists"));
 
     }
 }
