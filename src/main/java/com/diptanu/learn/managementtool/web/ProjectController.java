@@ -1,6 +1,7 @@
 package com.diptanu.learn.managementtool.web;
 
 import com.diptanu.learn.managementtool.domain.Project;
+import com.diptanu.learn.managementtool.services.ErrorValidationService;
 import com.diptanu.learn.managementtool.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,15 +25,15 @@ public class ProjectController {
     @Autowired
     ProjectService projectService;
 
+    @Autowired
+    ErrorValidationService errorValidationService;
+
     @PostMapping("")
     public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result) {
 
-        if (result.hasErrors()) {
+        ResponseEntity<?> errorMap = errorValidationService.mapErrorValidationServic(result);
 
-            Map<String, String> errorMap = new HashMap<>();
-            result.getFieldErrors().forEach(error -> errorMap.put(error.getField(), error.getDefaultMessage()));
-            return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
-        }
+        if (errorMap != null) return errorMap;
 
         projectService.saveOrUpdateProject(project);
         return new ResponseEntity<Project>(project, HttpStatus.CREATED);
