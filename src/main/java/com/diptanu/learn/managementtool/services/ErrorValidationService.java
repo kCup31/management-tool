@@ -11,7 +11,7 @@ import java.util.Map;
 @Service
 public class ErrorValidationService {
 
-    public ResponseEntity<?> mapErrorValidationServic(BindingResult result) {
+    public ResponseEntity<?> mapErrorValidationService(BindingResult result) {
 
         if (result.hasErrors()) {
 
