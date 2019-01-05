@@ -1,13 +1,18 @@
 package com.diptanu.learn.managementtool.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -23,7 +28,10 @@ public class Backlog {
     private String projectIdentifier;
 
     // One to One with project
-
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="projec_id", nullable = false)
+    @JsonIgnore
+    private Project project;
 
     // One to many projectTasks;
 
